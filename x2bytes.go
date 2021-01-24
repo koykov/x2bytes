@@ -41,7 +41,6 @@ func ToBytes(dst []byte, val interface{}) ([]byte, error) {
 	if dst == nil {
 		dst = make([]byte, 0)
 	}
-	dst = dst[:0]
 	for _, fn := range toBytesFnRegistry {
 		dst, err = fn(dst, val)
 		if err == nil {
