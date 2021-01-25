@@ -52,3 +52,9 @@ func ToBytes(dst []byte, val interface{}) ([]byte, error) {
 	}
 	return dst, ErrUnknownType
 }
+
+// Convert val to byte array with preliminary reset length of the dst.
+func ToBytesWR(dst []byte, val interface{}) ([]byte, error) {
+	dst = dst[:0]
+	return ToBytes(dst, val)
+}
