@@ -8,7 +8,7 @@ import (
 	"github.com/koykov/fastconv"
 )
 
-// Convert from byte array.
+// BytesToBytes converts from byte array.
 func BytesToBytes(dst []byte, val interface{}) ([]byte, error) {
 	switch val.(type) {
 	case *[]byte:
@@ -22,7 +22,7 @@ func BytesToBytes(dst []byte, val interface{}) ([]byte, error) {
 	return dst, nil
 }
 
-// Convert from string.
+// StrToBytes converts from string.
 func StrToBytes(dst []byte, val interface{}) ([]byte, error) {
 	switch val.(type) {
 	case *string:
@@ -36,7 +36,7 @@ func StrToBytes(dst []byte, val interface{}) ([]byte, error) {
 	return dst, nil
 }
 
-// Convert from boolean.
+// BoolToBytes converts from boolean.
 func BoolToBytes(dst []byte, val interface{}) ([]byte, error) {
 	var b bool
 	switch val.(type) {
@@ -57,7 +57,7 @@ func BoolToBytes(dst []byte, val interface{}) ([]byte, error) {
 	return dst, nil
 }
 
-// Convert from int (including int8, int16, ...).
+// IntToBytes converts from int (including int8, int16, ...).
 func IntToBytes(dst []byte, val interface{}) ([]byte, error) {
 	var i int64
 	switch val.(type) {
@@ -89,7 +89,7 @@ func IntToBytes(dst []byte, val interface{}) ([]byte, error) {
 	return dst, nil
 }
 
-// Convert from uint (including uint8, uint16, ...).
+// UintToBytes converts from uint (including uint8, uint16, ...).
 func UintToBytes(dst []byte, val interface{}) ([]byte, error) {
 	var i uint64
 	switch val.(type) {
@@ -121,7 +121,7 @@ func UintToBytes(dst []byte, val interface{}) ([]byte, error) {
 	return dst, nil
 }
 
-// Convert from float (32 and 64).
+// FloatToBytes converts from float (32 and 64 bits).
 func FloatToBytes(dst []byte, val interface{}) ([]byte, error) {
 	var f float64
 	switch val.(type) {

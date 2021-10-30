@@ -2,14 +2,15 @@ package x2bytes
 
 import "errors"
 
-// Signature of conversion function.
+// ToBytesFn is a signature of conversion function.
 type ToBytesFn func(dst []byte, val interface{}) ([]byte, error)
 
 var (
 	// Registry of conversion functions.
 	toBytesFnRegistry = make([]ToBytesFn, 0)
+	ErrUnknownType    = errors.New("unknown type")
 
-	ErrUnknownType = errors.New("unknown type")
+	_ = ToBytesWR
 )
 
 func init() {
@@ -22,7 +23,7 @@ func init() {
 	RegisterToBytesFn(FloatToBytes)
 }
 
-// Register new conversion function.
+// RegisterToBytesFn registers new conversion function.
 func RegisterToBytesFn(fn ToBytesFn) {
 	for _, f := range toBytesFnRegistry {
 		if &f == &fn {
@@ -32,10 +33,10 @@ func RegisterToBytesFn(fn ToBytesFn) {
 	toBytesFnRegistry = append(toBytesFnRegistry, fn)
 }
 
-// Generic conversion function.
+// ToBytes is a generic conversion function.
 //
 // Convert val to byte array and append result to the dst.
-// Returns dst and conversion error message. Error is nil when succeed.
+// Returns dst and conversion error message. Error is nil when succeeded.
 func ToBytes(dst []byte, val interface{}) ([]byte, error) {
 	var err error
 	if dst == nil {
@@ -53,7 +54,7 @@ func ToBytes(dst []byte, val interface{}) ([]byte, error) {
 	return dst, ErrUnknownType
 }
 
-// Convert val to byte array with preliminary reset length of the dst.
+// ToBytesWR converts val to byte array with preliminary reset length of the dst.
 func ToBytesWR(dst []byte, val interface{}) ([]byte, error) {
 	dst = dst[:0]
 	return ToBytes(dst, val)
