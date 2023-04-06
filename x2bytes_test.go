@@ -7,7 +7,7 @@ import (
 
 type stage struct {
 	name string
-	val  interface{}
+	val  any
 	dst  []byte
 }
 

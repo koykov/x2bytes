@@ -9,7 +9,7 @@ import (
 )
 
 // BytesToBytes converts from byte array.
-func BytesToBytes(dst []byte, val interface{}) ([]byte, error) {
+func BytesToBytes(dst []byte, val any) ([]byte, error) {
 	switch val.(type) {
 	case *[]byte:
 		dst = append(dst, *val.(*[]byte)...)
@@ -23,7 +23,7 @@ func BytesToBytes(dst []byte, val interface{}) ([]byte, error) {
 }
 
 // StrToBytes converts from string.
-func StrToBytes(dst []byte, val interface{}) ([]byte, error) {
+func StrToBytes(dst []byte, val any) ([]byte, error) {
 	switch val.(type) {
 	case *string:
 		dst = append(dst, fastconv.S2B(*val.(*string))...)
@@ -37,7 +37,7 @@ func StrToBytes(dst []byte, val interface{}) ([]byte, error) {
 }
 
 // BoolToBytes converts from boolean.
-func BoolToBytes(dst []byte, val interface{}) ([]byte, error) {
+func BoolToBytes(dst []byte, val any) ([]byte, error) {
 	var b bool
 	switch val.(type) {
 	case *bool:
@@ -58,7 +58,7 @@ func BoolToBytes(dst []byte, val interface{}) ([]byte, error) {
 }
 
 // IntToBytes converts from int (including int8, int16, ...).
-func IntToBytes(dst []byte, val interface{}) ([]byte, error) {
+func IntToBytes(dst []byte, val any) ([]byte, error) {
 	var i int64
 	switch val.(type) {
 	case int:
@@ -90,7 +90,7 @@ func IntToBytes(dst []byte, val interface{}) ([]byte, error) {
 }
 
 // UintToBytes converts from uint (including uint8, uint16, ...).
-func UintToBytes(dst []byte, val interface{}) ([]byte, error) {
+func UintToBytes(dst []byte, val any) ([]byte, error) {
 	var i uint64
 	switch val.(type) {
 	case uint:
@@ -122,7 +122,7 @@ func UintToBytes(dst []byte, val interface{}) ([]byte, error) {
 }
 
 // FloatToBytes converts from float (32 and 64 bits).
-func FloatToBytes(dst []byte, val interface{}) ([]byte, error) {
+func FloatToBytes(dst []byte, val any) ([]byte, error) {
 	var f float64
 	switch val.(type) {
 	case float32:

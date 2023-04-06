@@ -3,7 +3,7 @@ package x2bytes
 import "errors"
 
 // ToBytesFn is a signature of conversion function.
-type ToBytesFn func(dst []byte, val interface{}) ([]byte, error)
+type ToBytesFn func(dst []byte, val any) ([]byte, error)
 
 var (
 	// Registry of conversion functions.
@@ -37,7 +37,7 @@ func RegisterToBytesFn(fn ToBytesFn) {
 //
 // Convert val to byte array and append result to the dst.
 // Returns dst and conversion error message. Error is nil when succeeded.
-func ToBytes(dst []byte, val interface{}) ([]byte, error) {
+func ToBytes(dst []byte, val any) ([]byte, error) {
 	var err error
 	if dst == nil {
 		dst = make([]byte, 0)
@@ -55,7 +55,7 @@ func ToBytes(dst []byte, val interface{}) ([]byte, error) {
 }
 
 // ToBytesWR converts val to byte array with preliminary reset length of the dst.
-func ToBytesWR(dst []byte, val interface{}) ([]byte, error) {
+func ToBytesWR(dst []byte, val any) ([]byte, error) {
 	dst = dst[:0]
 	return ToBytes(dst, val)
 }
