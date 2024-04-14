@@ -4,8 +4,6 @@ package x2bytes
 
 import (
 	"strconv"
-
-	"github.com/koykov/fastconv"
 )
 
 // BytesToBytes converts from byte array.
@@ -26,9 +24,9 @@ func BytesToBytes(dst []byte, val any) ([]byte, error) {
 func StrToBytes(dst []byte, val any) ([]byte, error) {
 	switch val.(type) {
 	case *string:
-		dst = append(dst, fastconv.S2B(*val.(*string))...)
+		dst = append(dst, *val.(*string)...)
 	case string:
-		dst = append(dst, fastconv.S2B(val.(string))...)
+		dst = append(dst, val.(string)...)
 	default:
 		return dst, ErrUnknownType
 	}
