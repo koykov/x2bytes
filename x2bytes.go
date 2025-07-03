@@ -21,6 +21,7 @@ func init() {
 	RegisterToBytesFn(IntToBytes)
 	RegisterToBytesFn(UintToBytes)
 	RegisterToBytesFn(FloatToBytes)
+	RegisterToBytesFn(TimeToBytes)
 }
 
 // RegisterToBytesFn registers new conversion function.
