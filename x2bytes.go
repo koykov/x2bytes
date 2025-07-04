@@ -9,8 +9,6 @@ var (
 	// Registry of conversion functions.
 	toBytesFnRegistry = make([]ToBytesFn, 0)
 	ErrUnknownType    = errors.New("unknown type")
-
-	_ = ToBytesWR
 )
 
 func init() {
@@ -53,10 +51,4 @@ func ToBytes(dst []byte, val any) ([]byte, error) {
 		}
 	}
 	return dst, ErrUnknownType
-}
-
-// ToBytesWR converts val to byte array with preliminary reset length of the dst.
-func ToBytesWR(dst []byte, val any) ([]byte, error) {
-	dst = dst[:0]
-	return ToBytes(dst, val)
 }

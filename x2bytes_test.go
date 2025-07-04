@@ -60,7 +60,7 @@ func TestToBytes(t *testing.T) {
 		{name: "*time", val: &tt, dst: ttb},
 	}
 	x2b := func(t *testing.T, st *stage, buf []byte) {
-		if buf, err = ToBytesWR(buf, st.val); err != nil {
+		if buf, err = ToBytes(buf[:0], st.val); err != nil {
 			t.Error(err)
 		}
 		if st.name == "float32" || st.name == "*float32" {
@@ -125,7 +125,7 @@ func BenchmarkToBytes(b *testing.B) {
 	x2b := func(b *testing.B, st *stage, buf []byte) {
 		b.ReportAllocs()
 		for i := 0; i < b.N; i++ {
-			if buf, err = ToBytesWR(buf, st.val); err != nil {
+			if buf, err = ToBytes(buf[:0], st.val); err != nil {
 				b.Error(err)
 			}
 			if st.name == "float32" || st.name == "*float32" {
