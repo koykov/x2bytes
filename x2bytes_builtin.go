@@ -9,11 +9,11 @@ import (
 
 // BytesToBytes converts from byte array.
 func BytesToBytes(dst []byte, val any) ([]byte, error) {
-	switch val.(type) {
+	switch x := val.(type) {
 	case *[]byte:
-		dst = append(dst, *val.(*[]byte)...)
+		dst = append(dst, *x...)
 	case []byte:
-		dst = append(dst, val.([]byte)...)
+		dst = append(dst, x...)
 	default:
 		return dst, ErrUnknownType
 	}
@@ -23,11 +23,11 @@ func BytesToBytes(dst []byte, val any) ([]byte, error) {
 
 // StrToBytes converts from string.
 func StrToBytes(dst []byte, val any) ([]byte, error) {
-	switch val.(type) {
+	switch x := val.(type) {
 	case *string:
-		dst = append(dst, *val.(*string)...)
+		dst = append(dst, *x...)
 	case string:
-		dst = append(dst, val.(string)...)
+		dst = append(dst, x...)
 	default:
 		return dst, ErrUnknownType
 	}
@@ -38,11 +38,11 @@ func StrToBytes(dst []byte, val any) ([]byte, error) {
 // BoolToBytes converts from boolean.
 func BoolToBytes(dst []byte, val any) ([]byte, error) {
 	var b bool
-	switch val.(type) {
+	switch x := val.(type) {
 	case *bool:
-		b = *val.(*bool)
+		b = *x
 	case bool:
-		b = val.(bool)
+		b = x
 	default:
 		return dst, ErrUnknownType
 	}
@@ -59,27 +59,27 @@ func BoolToBytes(dst []byte, val any) ([]byte, error) {
 // IntToBytes converts from int (including int8, int16, ...).
 func IntToBytes(dst []byte, val any) ([]byte, error) {
 	var i int64
-	switch val.(type) {
+	switch x := val.(type) {
 	case int:
-		i = int64(val.(int))
+		i = int64(x)
 	case *int:
-		i = int64(*val.(*int))
+		i = int64(*x)
 	case int8:
-		i = int64(val.(int8))
+		i = int64(x)
 	case *int8:
-		i = int64(*val.(*int8))
+		i = int64(*x)
 	case int16:
-		i = int64(val.(int16))
+		i = int64(x)
 	case *int16:
-		i = int64(*val.(*int16))
+		i = int64(*x)
 	case int32:
-		i = int64(val.(int32))
+		i = int64(x)
 	case *int32:
-		i = int64(*val.(*int32))
+		i = int64(*x)
 	case int64:
-		i = val.(int64)
+		i = x
 	case *int64:
-		i = *val.(*int64)
+		i = *x
 	default:
 		return dst, ErrUnknownType
 	}
@@ -91,27 +91,27 @@ func IntToBytes(dst []byte, val any) ([]byte, error) {
 // UintToBytes converts from uint (including uint8, uint16, ...).
 func UintToBytes(dst []byte, val any) ([]byte, error) {
 	var i uint64
-	switch val.(type) {
+	switch x := val.(type) {
 	case uint:
-		i = uint64(val.(uint))
+		i = uint64(x)
 	case *uint:
-		i = uint64(*val.(*uint))
+		i = uint64(*x)
 	case uint8:
-		i = uint64(val.(uint8))
+		i = uint64(x)
 	case *uint8:
-		i = uint64(*val.(*uint8))
+		i = uint64(*x)
 	case uint16:
-		i = uint64(val.(uint16))
+		i = uint64(x)
 	case *uint16:
-		i = uint64(*val.(*uint16))
+		i = uint64(*x)
 	case uint32:
-		i = uint64(val.(uint32))
+		i = uint64(x)
 	case *uint32:
-		i = uint64(*val.(*uint32))
+		i = uint64(*x)
 	case uint64:
-		i = val.(uint64)
+		i = x
 	case *uint64:
-		i = *val.(*uint64)
+		i = *x
 	default:
 		return dst, ErrUnknownType
 	}
@@ -123,15 +123,15 @@ func UintToBytes(dst []byte, val any) ([]byte, error) {
 // FloatToBytes converts from float (32 and 64 bits).
 func FloatToBytes(dst []byte, val any) ([]byte, error) {
 	var f float64
-	switch val.(type) {
+	switch x := val.(type) {
 	case float32:
-		f = float64(val.(float32))
+		f = float64(x)
 	case *float32:
-		f = float64(*val.(*float32))
+		f = float64(*x)
 	case float64:
-		f = val.(float64)
+		f = x
 	case *float64:
-		f = *val.(*float64)
+		f = *x
 	default:
 		return dst, ErrUnknownType
 	}
@@ -143,11 +143,11 @@ func FloatToBytes(dst []byte, val any) ([]byte, error) {
 // TimeToBytes converts from time.Time.
 func TimeToBytes(dst []byte, val any) ([]byte, error) {
 	var t time.Time
-	switch val.(type) {
+	switch x := val.(type) {
 	case time.Time:
-		t = val.(time.Time)
+		t = x
 	case *time.Time:
-		t = *val.(*time.Time)
+		t = *x
 	default:
 		return dst, ErrUnknownType
 	}
