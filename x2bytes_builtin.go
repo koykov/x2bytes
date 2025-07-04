@@ -8,7 +8,7 @@ import (
 )
 
 // BytesToBytes converts from byte array.
-func BytesToBytes(dst []byte, val any) ([]byte, error) {
+func BytesToBytes(dst []byte, val any, _ ...any) ([]byte, error) {
 	switch x := val.(type) {
 	case *[]byte:
 		dst = append(dst, *x...)
@@ -22,7 +22,7 @@ func BytesToBytes(dst []byte, val any) ([]byte, error) {
 }
 
 // StrToBytes converts from string.
-func StrToBytes(dst []byte, val any) ([]byte, error) {
+func StrToBytes(dst []byte, val any, _ ...any) ([]byte, error) {
 	switch x := val.(type) {
 	case *string:
 		dst = append(dst, *x...)
@@ -36,7 +36,7 @@ func StrToBytes(dst []byte, val any) ([]byte, error) {
 }
 
 // BoolToBytes converts from boolean.
-func BoolToBytes(dst []byte, val any) ([]byte, error) {
+func BoolToBytes(dst []byte, val any, _ ...any) ([]byte, error) {
 	var b bool
 	switch x := val.(type) {
 	case *bool:
@@ -57,7 +57,7 @@ func BoolToBytes(dst []byte, val any) ([]byte, error) {
 }
 
 // IntToBytes converts from int (including int8, int16, ...).
-func IntToBytes(dst []byte, val any) ([]byte, error) {
+func IntToBytes(dst []byte, val any, _ ...any) ([]byte, error) {
 	var i int64
 	switch x := val.(type) {
 	case int:
@@ -89,7 +89,7 @@ func IntToBytes(dst []byte, val any) ([]byte, error) {
 }
 
 // UintToBytes converts from uint (including uint8, uint16, ...).
-func UintToBytes(dst []byte, val any) ([]byte, error) {
+func UintToBytes(dst []byte, val any, _ ...any) ([]byte, error) {
 	var i uint64
 	switch x := val.(type) {
 	case uint:
@@ -121,7 +121,7 @@ func UintToBytes(dst []byte, val any) ([]byte, error) {
 }
 
 // FloatToBytes converts from float (32 and 64 bits).
-func FloatToBytes(dst []byte, val any) ([]byte, error) {
+func FloatToBytes(dst []byte, val any, _ ...any) ([]byte, error) {
 	var f float64
 	switch x := val.(type) {
 	case float32:
@@ -141,7 +141,7 @@ func FloatToBytes(dst []byte, val any) ([]byte, error) {
 }
 
 // TimeToBytes converts from time.Time.
-func TimeToBytes(dst []byte, val any) ([]byte, error) {
+func TimeToBytes(dst []byte, val any, args ...any) ([]byte, error) {
 	var t time.Time
 	switch x := val.(type) {
 	case time.Time:
@@ -151,6 +151,12 @@ func TimeToBytes(dst []byte, val any) ([]byte, error) {
 	default:
 		return dst, ErrUnknownType
 	}
-	dst = t.AppendFormat(dst, time.RFC3339) // todo find a way to pass variadic layouts
+	layout := time.RFC3339
+	if len(args) > 0 {
+		if raw, ok := args[0].(string); ok {
+			layout = raw
+		}
+	}
+	dst = t.AppendFormat(dst, layout)
 	return dst, nil
 }
