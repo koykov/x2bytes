@@ -4,7 +4,6 @@ package x2bytes
 
 import (
 	"strconv"
-	"time"
 )
 
 // BytesToBytes converts from byte array.
@@ -137,26 +136,5 @@ func FloatToBytes(dst []byte, val any, _ ...any) ([]byte, error) {
 	}
 
 	dst = strconv.AppendFloat(dst, f, 'f', -1, 64)
-	return dst, nil
-}
-
-// TimeToBytes converts from time.Time.
-func TimeToBytes(dst []byte, val any, args ...any) ([]byte, error) {
-	var t time.Time
-	switch x := val.(type) {
-	case time.Time:
-		t = x
-	case *time.Time:
-		t = *x
-	default:
-		return dst, ErrUnknownType
-	}
-	layout := time.RFC3339
-	if len(args) > 0 {
-		if raw, ok := args[0].(string); ok {
-			layout = raw
-		}
-	}
-	dst = t.AppendFormat(dst, layout)
 	return dst, nil
 }
