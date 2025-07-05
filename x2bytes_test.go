@@ -3,7 +3,6 @@ package x2bytes
 import (
 	"bytes"
 	"testing"
-	"time"
 )
 
 type stage struct {
@@ -23,8 +22,6 @@ func TestToBytes(t *testing.T) {
 		i8, i16, i32, i64 = int8(127), int16(127), int32(127), int64(127)
 		u8, u16, u32, u64 = uint8(127), uint16(127), uint32(127), uint64(127)
 		eb, eiu, ef       = []byte("true"), []byte("127"), []byte("3.141592")
-		tt                = time.Date(2020, 1, 1, 1, 1, 1, 1, time.UTC)
-		ttb               = []byte("2020-01-01T01:01:01.000000001Z")
 	)
 	stages := []stage{
 		{name: "bytes", val: p, dst: eps},
@@ -57,8 +54,6 @@ func TestToBytes(t *testing.T) {
 		{name: "*float32", val: &f32, dst: ef},
 		{name: "float64", val: f64, dst: ef},
 		{name: "*float64", val: &f64, dst: ef},
-		{name: "time", val: tt, dst: ttb, args: []any{time.RFC3339Nano}},
-		{name: "*time", val: &tt, dst: ttb, args: []any{time.RFC3339Nano}},
 	}
 	x2b := func(t *testing.T, st *stage, buf []byte) {
 		if buf, err = ToBytes(buf[:0], st.val, st.args...); err != nil {
@@ -86,8 +81,6 @@ func BenchmarkToBytes(b *testing.B) {
 		i8, i16, i32, i64  = int8(127), int16(127), int32(127), int64(127)
 		u8, u16, u32, u64  = uint8(127), uint16(127), uint32(127), uint64(127)
 		eb, eiu, ef        = []byte("true"), []byte("127"), []byte("3.141592")
-		tt                 = time.Date(2020, 1, 1, 0, 0, 0, 0, time.UTC)
-		ttb                = []byte("2020-01-01T00:00:00Z")
 	)
 	stages := []stage{
 		{name: "bytes", val: p, dst: eps},
@@ -120,8 +113,6 @@ func BenchmarkToBytes(b *testing.B) {
 		{name: "*float32", val: &f32, dst: ef},
 		{name: "float64", val: f64, dst: ef},
 		{name: "*float64", val: &f64, dst: ef},
-		{name: "time", val: tt, dst: ttb},
-		{name: "*time", val: &tt, dst: ttb},
 	}
 	x2b := func(b *testing.B, st *stage, buf []byte) {
 		b.ReportAllocs()
